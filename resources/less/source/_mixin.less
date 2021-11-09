@@ -1,0 +1,27 @@
+//flex
+.flex(){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cols(@number){
+    width: @number;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+// transform 
+.transformer (@scale) {
+    transform: @scale;
+    -webkit-transform: @scale;
+    -moz-transform: @scale;
+    -ms-transform: @scale;
+    -o-transform: @scale;
+}
+// transit
+.transit (@attr, @sec) {
+    transition: @attr, @sec;
+    -webkit-transition: @attr, @sec;
+    -moz-transition: @attr, @sec;
+    -ms-transition: @attr, @sec;
+    -o-transition: @attr, @sec;
+}
