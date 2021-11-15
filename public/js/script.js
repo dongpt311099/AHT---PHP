@@ -36,6 +36,13 @@ function calcPriceTong() {
 }
 
 jQuery(document).ready(function () {
+  $(".orderStatus").on('change', function () {
+    var link = $(this).attr("statuslink");
+    link = link.replace("_status_", this.value);
+    $.put(link, {}, function (data, status) {
+      console.log(data);
+    });
+  });
   $.ajaxSetup({
     headers: {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

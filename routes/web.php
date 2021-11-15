@@ -61,10 +61,11 @@ Route::delete('/cart/{productId}', [CartController::class, 'Delete'])->name('del
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::post('/order', [CartController::class, 'order'])->name('order');
 
-Route::get('/orders', [OrderController::class, 'orders'])->name('orders')->middleware(['auth','check.admin']);
-Route::get('/orderDetail', [OrderController::class, 'orderDetail'])->name('orderDetail');
+// Route::get('/orders', [OrderController::class, 'orders'])->name('orders')->middleware(['auth','check.admin']);
+// Route::get('/orderDetail', [OrderController::class, 'orderDetail'])->name('orderDetail');
 
 Route::prefix('orders')->group(function () {
     Route::get('/', [OrderController::class, 'orders'])->name('orders');
     Route::get('/detail/{orderId}', [OrderController::class, 'orderDetail'])->name('orderDetail');
+    Route::put('/detail/{orderId}/status/{status}', [OrderController::class, 'status'])->name('status');
 });

@@ -41,6 +41,27 @@ $(document).ready(function(){
 /* Back To Top */
 
 $(document).ready(function(){ 
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  
+  $(".orderStatus").on('change', function() {
+    let link = $(this).attr("statuslink");
+    link = link.replace("_status_", this.value);
+    $.ajax({
+      url: link,
+      type: 'PUT',
+      // data: "name=John&location=Boston",
+      success: function(data) {
+        alert(data.message);
+        console.log(data);
+      }
+    });
+  });
+
+
     $(window).on("scroll", function(){ 
         if ($(this).scrollTop() > 300) { 
             $('.back-to-top').fadeIn(); 

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\checkout;
+use App\Models\Orders;
+use App\Models\OrdersProducts;
 use App\Models\Product;
-use Checkout as GlobalCheckout;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Psy\VersionUpdater\Checker;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends BaseController
@@ -57,10 +56,6 @@ class CartController extends BaseController
 
     public function checkout(Request $request)
     {
-        $users = Checkout::where("idUser", $request->user()->id)
-        ->join('users', 'checkout.idUser', '=', 'users.id')
-        ->get(["users.id AS uid"]);
-           
         if( Auth::check() ){
             $uid = $request->user()->id;
             $cart = Cart::where("idUser", $uid)->sum("quantity");
@@ -68,7 +63,6 @@ class CartController extends BaseController
         }
 
         return view('checkout')->with([
-            "users" => $users,
             "cart" => $cart
         ]);
     }
@@ -76,16 +70,39 @@ class CartController extends BaseController
     public function order(Request $request)
     {
         $uid = $request->user()->id;
+        
+        $products = Cart::where("idUser", $request->user()->id)
+        ->join('products', 'cart.idProduct', '=', 'products.id')
+        ->get(["products.id AS pid",
+               "products.salePrice",
+               "cart.quantity"
+            ]);
 
-        Checkout::create([
-            'idUser' => $uid,
+        $sum = $products->sum(function ($product) {
+            return $product->quantity * $product->salePrice;
+        });
+
+        $order = Orders::create([
+            'id_user' => $uid,
             'name' => $request->name,
-            'phoneNumber' => $request->phoneNumber,
+            'phone_number' => $request->phoneNumber,
             'address' => $request->address,
-            'city' => $request->city
+            'city' => $request->city,
+            'status' => '0',
+            'shipping' => 35000,
+            'sub_total' => $sum
         ]);
 
-        return redirect(route("checkout"));
+        foreach($products as $p){
+            OrdersProducts::Create([
+                'id_orders' => $order->id,
+                'id_products' => $p->pid,
+                'quantity' => $p->quantity,
+                'price' => $p->price
+            ]);
+        }
+
+        return redirect(route("checkout"));     
     }
 
     

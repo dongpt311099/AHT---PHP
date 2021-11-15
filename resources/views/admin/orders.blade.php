@@ -26,11 +26,18 @@
             @foreach ($checkout as $c)
             <tbody>
                 <tr>
-                    <td><a href="{{ route('orderDetail') }}">{{$c->id}}</a></td>
-                    <td><a href="{{ route('orderDetail') }}">{{$c->idUser}}</a></td>
-                    <td><a href="{{ route('orderDetail') }}">{{$c->name}}</a></td>
-                    <td><a href="{{ route('orderDetail') }}">{{$c->status}}</a></td>
-                    <td><a href="{{ route('orderDetail') }}">{{$c->price}}</a></td>
+                    <td><a href="{{ route('orderDetail', ['orderId' => $c->id]) }}">{{$c->id}}</a></td>
+                    <td><a href="{{ route('orderDetail', ['orderId' => $c->id]) }}">{{$c->id_user}}</a></td>
+                    <td><a href="{{ route('orderDetail', ['orderId' => $c->id]) }}">{{$c->name}}</a></td>
+                    <td>
+                        <select class="orderStatus" statusLink="{{ route('status', ['orderId' => $c->id, 'status'=> '_status_']) }}" name="status">
+                            <option value="0" {{$c->status == 0 ? 'selected="selected"':''}}>Chờ xác nhận</option>
+                            <option value="1" {{$c->status == 1 ? 'selected="selected"':''}}>Đã xác nhận</option>
+                            <option value="2" {{$c->status == 2 ? 'selected="selected"':''}} >Đang vận chuyển</option>
+                            <option value="3" {{$c->status == 3 ? 'selected="selected"':''}} >Thành công</option>
+                        </select>
+                    </td>
+                    <td><a href="{{ route('orderDetail', ['orderId' => $c->id]) }}">{{$c->sub_total}}</a></td>
                 </tr>
             </tbody>
             @endforeach
