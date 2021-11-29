@@ -96,6 +96,29 @@ class IndexController extends BaseController
         return view('login');
     }
 
+    public function myOrder(Request $request)
+    {
+        $products = Cart::where("idUser", $request->user()->id)
+        ->join('products', 'cart.idProduct', '=', 'products.id')
+        ->get(["products.id AS pid",
+               "products.img",
+               "products.name",
+               "products.salePrice",
+               "cart.id AS cardId",
+               "cart.quantity"
+            ]);
+
+        if( Auth::check() ){
+            $uid = $request->user()->id;
+            $cart = Cart::where("idUser", $uid)->sum("quantity");
+            $data['cart'] = $cart;
+        }
+        return view('myOrder')->with([
+            "cart" => $cart,
+            "products" => $products
+        ]);
+    }
+
     public function addUser(Request $request)
     {
         $request->validate([

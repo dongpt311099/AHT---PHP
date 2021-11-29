@@ -14,6 +14,10 @@
                     </div>
                     @endguest
                     @auth
+                    <div class="shop-setting-lock">
+                        <div class="icon icon-lock"><i class="fas fa-history"></i></div>
+                        <div class="text text-lock"><a href="{{ url('myOrder') }}" style="color: #525252">My Order</a></div>
+                    </div>
                     <div class="shop-setting-top">
                         <div class="icon icon-setting"><i class="far fa-user"></i></div>
                         <div class="text text-setting"><a href="#" style="color: #525252">{{ Auth::user()->name }}</a></div>

@@ -30,11 +30,11 @@
                     <td><a href="{{ route('orderDetail', ['orderId' => $c->id]) }}">{{$c->id_user}}</a></td>
                     <td><a href="{{ route('orderDetail', ['orderId' => $c->id]) }}">{{$c->name}}</a></td>
                     <td>
-                        <select class="orderStatus" statusLink="{{ route('status', ['orderId' => $c->id, 'status'=> '_status_']) }}" name="status">
-                            <option value="0" {{$c->status == 0 ? 'selected="selected"':''}}>Chờ xác nhận</option>
-                            <option value="1" {{$c->status == 1 ? 'selected="selected"':''}}>Đã xác nhận</option>
-                            <option value="2" {{$c->status == 2 ? 'selected="selected"':''}} >Đang vận chuyển</option>
-                            <option value="3" {{$c->status == 3 ? 'selected="selected"':''}} >Thành công</option>
+                        <select class="orderStatus"  statusLink="{{ route('status', ['orderId' => $c->id, 'status'=> '_status_']) }}" name="status">
+                            <option style="background: white;" value="0" {{$c->status == 0 ? 'selected="selected"':''}}>Chờ xác nhận</option>
+                            <option style="background: white;" value="1" {{$c->status == 1 ? 'selected="selected"':''}}>Đã xác nhận</option>
+                            <option style="background: white;" value="2" {{$c->status == 2 ? 'selected="selected"':''}} >Đang vận chuyển</option>
+                            <option style="background: white;" value="3" {{$c->status == 3 ? 'selected="selected"':''}} >Thành công</option>
                         </select>
                     </td>
                     <td><a href="{{ route('orderDetail', ['orderId' => $c->id]) }}">{{$c->sub_total}}</a></td>

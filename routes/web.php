@@ -32,6 +32,7 @@ Route::get('/cart', [IndexController::class, 'cart'])->name('cart');
 
 Route::get('/login', [IndexController::class, 'login'])->name('login');
 Route::post('/login', [IndexController::class, 'authen']);
+Route::get('/myOrder', [IndexController::class, 'myOrder'])->name('myOrder');
 Route::get('/logout', [IndexController::class, 'logout'])->name('logout');
 
 Route::get('/signUp', [IndexController::class, 'login']);
@@ -60,9 +61,6 @@ Route::delete('/cart/{productId}', [CartController::class, 'Delete'])->name('del
 
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::post('/order', [CartController::class, 'order'])->name('order');
-
-// Route::get('/orders', [OrderController::class, 'orders'])->name('orders')->middleware(['auth','check.admin']);
-// Route::get('/orderDetail', [OrderController::class, 'orderDetail'])->name('orderDetail');
 
 Route::prefix('orders')->group(function () {
     Route::get('/', [OrderController::class, 'orders'])->name('orders');

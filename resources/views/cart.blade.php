@@ -9,12 +9,7 @@
         <a href="/collections" class="continue">Continue Shopping</a>
     </div>
     <div class="cart">
-        <!--    <ul class="tableHead">
-      <li class="prodHeader">Product</li>
-      <li>Quantity</li>
-      <li>Total</li>
-       <li>Remove</li>
-    </ul>-->
+
         <ul class="cartWrap">
             @foreach ($products as $product)
             <li class="items odd">
